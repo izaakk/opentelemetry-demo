@@ -491,6 +491,11 @@ services:
           memory: 100M
     restart: always
     command: [ "--config=/etc/otelcol-config.yml", "--config=/etc/otelcol-config-extras.yml" ]
+    environment:
+      - AWS_REGION=us-west-2
+      - AWS_ACCESS_KEY_ID=AKIAXHR67FKDFCLLJGWU
+      - AWS_SECRET_ACCESS_KEY=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
+
     volumes:
       - ./src/otelcollector/otelcol-config.yml:/etc/otelcol-config.yml
       - ./src/otelcollector/otelcol-config-extras.yml:/etc/otelcol-config-extras.yml

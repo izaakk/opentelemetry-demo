@@ -1,3 +1,7 @@
+extensions:
+  sigv4auth:
+    region: "us-west-2"
+
 receivers:
   otlp:
     protocols:
@@ -14,8 +18,6 @@ exporters:
     tls:
       insecure: true
   logging:
-  prometheus:
-    endpoint: "otelcol:9464"
   prometheusremotewrite:
     endpoint: "https://aps-workspaces.us-west-2.amazonaws.com/workspaces/ws-6f1f8c01-d166-43d9-9ee4-36646029331e/api/v1/remote_write"
     auth:
@@ -25,9 +27,10 @@ exporters:
 processors:
   batch:
   spanmetrics:
-    metrics_exporter: prometheus
+    metrics_exporter: prometheusremotewrite
 
 service:
+  extensions: [sigv4auth]
   pipelines:
     traces:
       receivers: [otlp]
