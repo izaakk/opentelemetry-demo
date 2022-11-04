@@ -16,6 +16,11 @@ exporters:
   logging:
   prometheus:
     endpoint: "otelcol:9464"
+  prometheusremotewrite:
+    endpoint: "https://aps-workspaces.us-west-2.amazonaws.com/workspaces/ws-6f1f8c01-d166-43d9-9ee4-36646029331e/api/v1/remote_write"
+    auth:
+      authenticator: sigv4auth
+  
 
 processors:
   batch:
@@ -31,4 +36,4 @@ service:
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [prometheus, logging]
+      exporters: [prometheusremotewrite, logging]
